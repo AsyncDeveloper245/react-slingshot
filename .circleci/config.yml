@@ -11,10 +11,10 @@ jobs:
     steps:
       - checkout
       - npm i
-
       - save_cache:
           key: "node-modules"
-          path: "src/node_modules"
+          paths:
+            - /src/node_modules
 
       - run: npm run lint
 
@@ -43,6 +43,8 @@ workflows:
     jobs:
       - build
       - test:
-          requires: build
+          requires:
+            - build
       - analyze:
-          requires: test
+          requires:
+            - test
